@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Copy 3 elements to &apos;Flappy Bird/src/flappybird&apos;&#x0D;&#x0A;- Original project: &apos;Flappy-Bird-Clone-master&apos;&#x0D;&#x0A;- Destination element: &apos;Flappy Bird/src/flappybird&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     78px-Pipe.png&#x0D;&#x0A;     sticker,375x360.u2.png&#x0D;&#x0A;     pipe_part.png" description="Copy files" destination="=Flappy Bird/src&lt;flappybird" element1="Flappy-Bird-Clone-master/78px-Pipe.png" element2="Flappy-Bird-Clone-master/sticker,375x360.u2.png" element3="Flappy-Bird-Clone-master/pipe_part.png" files="3" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1511375127760" units="0" version="1.0"/>
-</session>
