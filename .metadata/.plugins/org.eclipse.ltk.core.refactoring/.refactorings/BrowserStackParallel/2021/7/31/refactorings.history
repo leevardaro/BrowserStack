@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;Homework.java&apos; to &apos;MavenBS/src/main/java/MBS.MavenBS&apos;&#x0D;&#x0A;- Original project: &apos;BrowserStackParallel&apos;&#x0D;&#x0A;- Destination element: &apos;MavenBS/src/main/java/MBS.MavenBS&apos;&#x0D;&#x0A;- Original element: &apos;browserStack.Homework.java&apos;" description="Copy compilation unit" destination="=MavenBS/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;MBS.MavenBS" element1="/src&lt;browserStack{Homework.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1627336839833" units="1" version="1.0"/>
+</session>

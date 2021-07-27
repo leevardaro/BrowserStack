@@ -1,0 +1,142 @@
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+class TestClass1 implements Runnable {
+	public void run() {
+		Hashtable<String, String> capsHashtable = new Hashtable<String, String>();
+		capsHashtable.put("device", "iPhone 12 Pro");
+		capsHashtable.put("real_mobile", "true");
+		capsHashtable.put("os_version", "14");
+		capsHashtable.put("build", "BStack-[Java] Sample Build");
+		capsHashtable.put("name", "Thread 1");
+		Homework r1 = new Homework();
+		r1.executeTest(capsHashtable);
+  }
+}
+class TestClass2 implements Runnable {
+  public void run() {
+		Hashtable<String, String> capsHashtable = new Hashtable<String, String>();
+		capsHashtable.put("device", "Samsung Galaxy S20");
+		capsHashtable.put("real_mobile", "true");
+		capsHashtable.put("os_version", "11.0");
+		capsHashtable.put("build", "BStack-[Java] Sample Build");
+		capsHashtable.put("name", "Thread 2");
+		Homework r1 = new Homework();
+    r1.executeTest(capsHashtable);
+  }
+}
+class TestClass3 implements Runnable {
+	public void run() {
+		Hashtable<String, String> capsHashtable = new Hashtable<String, String>();
+		capsHashtable.put("browser", "safari");
+		capsHashtable.put("browser_version", "14");
+		capsHashtable.put("os", "OS X");
+		capsHashtable.put("os_version", "Big Sur");
+		capsHashtable.put("build", "BStack-[Java] Sample Build");
+		capsHashtable.put("name", "Thread 3");
+		Homework r1 = new Homework();
+    r1.executeTest(capsHashtable);
+  }
+}
+public class Homework {
+  public static final String USERNAME = "leevardaro_sqiF2Y";
+  public static final String AUTOMATE_KEY = "XNR17aPXPp6NaNZNvyD2";
+  public static final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
+  public static void main(String[] args) throws Exception {
+	Thread object1 = new Thread(new TestClass1());
+    object1.start();
+    /*Thread object2 = new Thread(new TestClass2());
+    object2.start();
+    Thread object3 = new Thread(new TestClass3());
+    object3.start();*/
+  }
+	public void executeTest(Hashtable<String, String> capsHashtable) {
+		String key;
+	  DesiredCapabilities caps = new DesiredCapabilities();
+		// Iterate over the hashtable and set the capabilities
+		Set<String> keys = capsHashtable.keySet();
+    Iterator<String> itr = keys.iterator();
+    while (itr.hasNext()) {
+       key = itr.next();
+       caps.setCapability(key, capsHashtable.get(key));
+    }
+    WebDriver driver;
+		try {
+			driver = new RemoteWebDriver(new URL(URL), caps);
+	    JavascriptExecutor jse = (JavascriptExecutor)driver;
+	    String baseUrl = "https://www.google.com";
+	    String expectedTitle = "Troy University | Troy University";
+	    String expectedDegree = "Computer Systems Engineer/Architect";
+	    String actualTitle = "";
+	    String degreeTitle = "";
+	    WebDriverWait wait = new WebDriverWait(driver, 10);
+	    // launch browser and direct it to the Base URL
+	    driver.manage().window().maximize();
+	    driver.get(baseUrl);
+	    
+	    WebElement googleSearch = driver.findElement(By.name("q"));
+	    googleSearch.sendKeys("Troy University");
+	    googleSearch.submit();
+	    
+	    //WebElement troy = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href ='https://www.troy.edu/'")));
+
+	    WebElement troyLink = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href ='https://www.troy.edu/']")));
+	    troyLink.click();
+	    
+	    WebElement troySearch = driver.findElement(By.id("global-search--desktop"));
+	    troySearch.sendKeys("Computer Science Department");
+	    troySearch.submit();
+	    
+	    WebElement compDeptLink = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(.,\"Bachelor's Degree\")]/b[.=\"Computer\"]/..")));
+	    compDeptLink.click();
+
+	    WebElement compEngExpand = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@aria-label='Computer Systems Engineer/Architect']")));
+	    compEngExpand.click();
+	    
+	     
+	    WebElement compEngLink = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@href='/career/index.html#15-1199.02']")));
+	    compEngLink.click();
+	    //WebElement compEngLink = driver.findElement(By.xpath("//*[@href='/career/index.html#15-1199.02']/.."));
+	    //compEngLink.click();
+	    // get the actual value of the title
+	    actualTitle = driver.getTitle();
+	    System.out.println(actualTitle);
+	    degreeTitle = driver.findElement(By.xpath("//*[@class='ccTitle']")).getText();
+	    System.out.println(degreeTitle);
+	    /*
+	     * compare the actual title of the page with the expected one and print
+	     * the result as "Passed" or "Failed"
+	     
+	    if (actualTitle.contentEquals(expectedTitle)&&degreeTitle.contentEquals(expectedDegree)){
+	    	jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Right Page!\"}}");
+	    } else {
+	    	jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"failed\", \"reason\": \"Wrong Page!\"}}");
+	    }
+
+	    //close driver
+	    driver.quit();*/
+	   try {
+	    	wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//*[@href='/career/index.html#15-1199.02']"),expectedDegree));
+	    	jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Right Page!\"}}");
+	    }
+	    catch(Exception e) {
+	    	jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"failed\", \"reason\": \"Wrong Page!\"}}");
+	    }
+	    System.out.println(driver.getTitle());
+	    driver.quit();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+	}
+}
